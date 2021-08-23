@@ -7,6 +7,11 @@
 
 import UIKit
 
+public enum CornerStyle {
+	case round
+	case square
+}
+
 @objcMembers
 @IBDesignable
 public class LinearPageController: UIView {
@@ -99,6 +104,14 @@ public class LinearPageController: UIView {
 			self.indicatorView.transform = moveAction
 		})
 	}
+	
+	public var cornerRadius: CGFloat = 5.0
+	
+	public var corner: CornerStyle = .square {
+		didSet {
+			setUpIndicatorCorner()
+		}
+	}
 }
 
 fileprivate extension LinearPageController {
@@ -110,6 +123,18 @@ fileprivate extension LinearPageController {
 	
 	func setUpIndicatorBackgroundUI() {
 		self.backgroundColor = defaultIndicatorBackgroundColor
+	}
+	
+	func setUpIndicatorCorner() {
+		switch self.corner {
+		case .round:
+			self.layer.cornerRadius = cornerRadius
+			self.indicatorView.layer.cornerRadius = cornerRadius
+		case .square:
+			self.layer.cornerRadius = 0.0
+			self.indicatorView.layer.cornerRadius = 0.0
+		}
+		self.layer.masksToBounds = true
 	}
 	
 	func createIndicatorViewConstraints() {

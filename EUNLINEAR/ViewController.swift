@@ -22,6 +22,7 @@ class ViewController: UIViewController {
 		
 		// PageController numberOfPage 설정
 		linearPageController.numberOfPages = ColorImg.colorList.count
+		linearPageController.corner = .round
 	}
 	
 	func configureCollectionView() {
